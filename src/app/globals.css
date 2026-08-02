@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+:root {
+  --background-center: #fafafa;
+  --background-edge: #f0efea;
+  --foreground: #171717;
+}
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
+}
+
+body {
+  background: radial-gradient(circle at center, var(--background-center) 0%, var(--background-edge) 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  overflow-x: hidden;
+}
+
+/* Fluid typography basics */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar to maintain minimal aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
