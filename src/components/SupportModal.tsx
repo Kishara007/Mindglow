@@ -30,6 +30,7 @@ export default function SupportModal({ isOpen, onClose }: SupportModalProps) {
             {/* Close Button */}
             <button
               onClick={onClose}
+              aria-label="Close Support Modal"
               className="absolute top-5 right-5 text-black/40 hover:text-black/80 transition-colors p-1"
             >
               <X size={20} strokeWidth={1.5} />

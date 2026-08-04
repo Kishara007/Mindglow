@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, Sparkles, Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import SupportModal from "../components/SupportModal";
 
 if (typeof window !== "undefined") {
@@ -425,9 +426,12 @@ export default function Home() {
                     ease: "easeInOut",
                   }}
                 >
-                  <img 
+                  <Image 
                     src="https://res.cloudinary.com/dpx6w78bt/image/upload/f_auto/q_auto/v1785765192/Cartoon_animation_style_2K_202608031922_qqjzpc.jpg" 
                     alt="The Lantern"
+                    width={400}
+                    height={500}
+                    priority
                     className="w-full h-full object-cover opacity-85 saturate-[0.8]"
                   />
                   {/* Inner shadow overlay to blend it into the glass */}
