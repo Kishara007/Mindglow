@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://mindglow.online/sitemap.xml',
+    sitemap: 'https://www.mindglow.online/sitemap.xml',
   };
 }

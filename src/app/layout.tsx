@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,13 +16,13 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://mindglow.online'),
+  metadataBase: new URL('https://www.mindglow.online'),
   title: "Mindglow | A Quiet Place for a Loud Mind",
   description: "An ad-free, open-access sanctuary built for mental stillness. Experience the calming interactive lantern meditation.",
   openGraph: {
     title: "Mindglow",
     description: "A quiet place for a loud mind.",
-    url: "https://mindglow.online",
+    url: "https://www.mindglow.online",
     siteName: "Mindglow",
     images: [
       {
@@ -47,7 +48,7 @@ const jsonLd = {
   '@type': 'WebApplication',
   name: 'Mindglow',
   description: 'An interactive sanctuary for mental stillness and meditation.',
-  url: 'https://mindglow.online',
+  url: 'https://www.mindglow.online',
   applicationCategory: 'HealthAndFitnessApplication',
   operatingSystem: 'Any',
   offers: {
@@ -69,6 +70,17 @@ export default function RootLayout({
       className={`${inter.variable} ${cormorant.variable} antialiased`}
     >
       <body className="min-h-full font-sans selection:bg-black/10 selection:text-black">
+        {/* Google Analytics */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-9ERKYLCDKC" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-9ERKYLCDKC');
+          `}
+        </Script>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
