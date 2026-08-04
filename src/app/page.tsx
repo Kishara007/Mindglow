@@ -32,7 +32,7 @@ export default function Home() {
   const mindTextRef = useRef<HTMLSpanElement>(null);
   const glowTextRef = useRef<HTMLSpanElement>(null);
   const subheadRef = useRef<HTMLDivElement>(null);
-  const supportNavRef = useRef<HTMLAnchorElement>(null);
+  const supportNavRef = useRef<HTMLButtonElement>(null);
 
 
 
