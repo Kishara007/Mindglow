@@ -1,0 +1,476 @@
+/* ============================================================
+   Pixel Thoughts — Global Styles
+   Tailwind CSS v4 import + custom cosmic design tokens
+   ============================================================ */
+
+
+
+/* ============================================================
+   CSS Custom Properties — Design System Tokens
+   Deep-space color palette with ethereal glows
+   ============================================================ */
+:root {
+  /* Deep space palette */
+  --color-void: #030014;
+  --color-nebula-deep: #0a0520;
+  --color-nebula-mid: #120a30;
+  --color-nebula-light: #1a0f40;
+
+  /* Glow & accent colors */
+  --color-star-core: #e8e0ff;
+  --color-star-glow: #b794f6;
+  --color-star-halo: #7c3aed;
+  --color-star-outer: #4c1d95;
+  --color-accent-blue: #60a5fa;
+  --color-accent-cyan: #22d3ee;
+  --color-text-primary: #f0eaff;
+  --color-text-secondary: #a78bfa;
+  --color-text-muted: rgba(167, 139, 250, 0.5);
+
+  /* Typography */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Glow intensities */
+  --glow-sm: 0 0 10px rgba(183, 148, 246, 0.3);
+  --glow-md: 0 0 30px rgba(183, 148, 246, 0.4), 0 0 60px rgba(124, 58, 237, 0.2);
+  --glow-lg: 0 0 40px rgba(183, 148, 246, 0.5), 0 0 80px rgba(124, 58, 237, 0.3), 0 0 120px rgba(76, 29, 149, 0.2);
+  --glow-xl: 0 0 60px rgba(183, 148, 246, 0.6), 0 0 120px rgba(124, 58, 237, 0.4), 0 0 200px rgba(76, 29, 149, 0.25), 0 0 300px rgba(76, 29, 149, 0.1);
+}
+
+
+
+.lantern-wrapper {
+  width: 100%;
+  min-height: 100%;
+  background-color: #F9F9F6;
+  color: #2C2C28;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+}
+
+.font-garamond {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+}
+
+.font-sans-clean {
+  font-family: 'Inter', sans-serif;
+}
+
+@keyframes slowPan {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1%); }
+  50% { transform: translate(1%, -2%); }
+  75% { transform: translate(2%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Outer layer handles the Zoom Transition */
+.bg-layer-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  transform-origin: center center;
+  transition: transform 15s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: scale(1);
+}
+
+.bg-layer-zoom.is-input {
+  transform: scale(1.5);
+}
+
+/* Inner layer handles the continuous Pan Animation */
+.bg-layer-pan {
+  position: absolute;
+  inset: -10%; /* Make it larger than viewport so panning doesn't reveal edges */
+  background: url('https://res.cloudinary.com/dpx6w78bt/image/upload/f_auto/q_auto/v1785563054/bg_qvgb9w.jpg') no-repeat center center / cover;
+  animation: slowPan 60s ease-in-out infinite;
+}
+
+/* Mobile Background Override */
+@media (max-width: 768px) {
+  .bg-layer-pan {
+    background: url('https://res.cloudinary.com/dpx6w78bt/image/upload/f_auto/q_auto/v1785563053/bg1_w1ggdw.jpg') no-repeat center center / cover;
+  }
+  .bg-layer-zoom.is-input {
+    transform: scale(2);
+  }
+}
+
+/* Prevent text selection during meditation */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ============================================================
+   Starfield Canvas — sits behind everything
+   ============================================================ */
+.canvas-container {
+  position: fixed;
+  inset: 0;
+  z-index: 1; /* Above background image, below UI */
+}
+
+/* ============================================================
+   Main UI Layer — sits above the Three.js canvas
+   ============================================================ */
+.ui-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.ui-layer > * {
+  pointer-events: auto;
+}
+
+/* ============================================================
+   Central Container — Transparent wrapper for text/input
+   The actual visual star is now rendered in Three.js WebGL
+   ============================================================ */
+.central-container {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  z-index: 20; /* Ensure text is above canvas */
+}
+
+/* Responsive container sizing (matches 3D star scaling) */
+@media (max-width: 640px) {
+  .central-container {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 400px) {
+  .central-container {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+/* ============================================================
+   Input Styling — Transparent input inside the star
+   ============================================================ */
+.thought-input {
+  width: 80%;
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: center;
+  color: #3d1a00;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  caret-color: #3d1a00;
+  z-index: 2;
+}
+
+.thought-input::placeholder {
+  color: rgba(61, 26, 0, 0.5);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ============================================================
+   Thought Text — Displayed inside star during meditation
+   ============================================================ */
+.thought-text {
+  position: absolute;
+  width: 80%;
+  text-align: center;
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  z-index: 2;
+}
+
+/* ============================================================
+   Calming Phrase — Fades in/out during meditation
+   ============================================================ */
+.calming-phrase {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  opacity: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .calming-phrase {
+    font-size: 1.1rem;
+    bottom: 14%;
+  }
+}
+
+/* ============================================================
+   Prompt Label — "What is bothering you?" above the star
+   ============================================================ */
+.prompt-label {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #3d1a00;
+  margin-bottom: 5rem;
+  text-shadow: none;
+}
+
+@media (max-width: 640px) {
+  .prompt-label {
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.submit-btn {
+  margin-top: 0;
+  padding: 0.65rem 2.5rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 100px;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(4px);
+}
+
+.submit-btn:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Resolution / Restart
+   ============================================================ */
+.resolution-message {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--color-text-primary);
+  text-shadow: 0 0 30px rgba(183, 148, 246, 0.4);
+  opacity: 0;
+  text-align: center;
+}
+
+.restart-btn {
+  margin-top: 2.5rem;
+  padding: 0.7rem 2.8rem;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(183, 148, 246, 0.1));
+  border: 1px solid rgba(183, 148, 246, 0.25);
+  border-radius: 100px;
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  opacity: 0;
+  backdrop-filter: blur(4px);
+}
+
+.restart-btn:hover {
+  border-color: var(--color-star-glow);
+  box-shadow: var(--glow-md);
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.35), rgba(183, 148, 246, 0.2));
+}
+
+/* ============================================================
+   Audio Toggle — Corner button
+   ============================================================ */
+.audio-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(10, 5, 32, 0.6);
+  border: 1px solid rgba(183, 148, 246, 0.2);
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.6);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.audio-toggle:hover {
+  border-color: var(--color-star-glow);
+  box-shadow: var(--glow-sm);
+  color: var(--color-star-core);
+}
+
+/* ============================================================
+   Timer ring during meditation
+   ============================================================ */
+.timer-ring {
+  position: absolute;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  pointer-events: none;
+}
+
+.timer-ring circle {
+  fill: none;
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.timer-ring .track {
+  stroke: rgba(183, 148, 246, 0.08);
+}
+
+.timer-ring .progress {
+  stroke: rgba(183, 148, 246, 0.3);
+  transition: stroke-dashoffset 1s linear;
+}
+
+/* ============================================================
+   Enter instruction hint
+   ============================================================ */
+.enter-hint {
+  margin-top: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   Language Selector Dropdown Animation
+   ============================================================ */
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar for the language dropdown */
+.lantern-wrapper ::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lantern-wrapper ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lantern-wrapper ::-webkit-scrollbar-thumb {
+  background: rgba(183, 148, 246, 0.2);
+  border-radius: 4px;
+}
+
+.lantern-wrapper ::-webkit-scrollbar-thumb:hover {
+  background: rgba(183, 148, 246, 0.4);
+}
+
+/* ============================================================
+   Support / Resolution Message
+   ============================================================ */
+.support-container {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  max-width: 450px;
+  text-align: center;
+}
+
+.support-message {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.03em;
+}
+
+.support-link {
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  background: rgba(10, 5, 32, 0.6);
+  padding: 0.6rem 1.5rem;
+  border-radius: 100px;
+  border: 1px solid rgba(183, 148, 246, 0.3);
+}
+
+.support-link:hover {
+  color: #ffffff;
+  border-color: var(--color-star-glow);
+  box-shadow: var(--glow-sm);
+  transform: translateY(-2px);
+  background: rgba(124, 58, 237, 0.2);
+}
+

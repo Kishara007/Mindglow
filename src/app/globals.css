@@ -38,3 +38,18 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.3);
 }
+
+/* Soften Next.js Dev Badge in local dev environment to prevent visual hierarchy hijack */
+nextjs-portal,
+[data-nextjs-toast-wrapper],
+[data-nextjs-dev-overlay-button] {
+  opacity: 0.3 !important;
+  filter: grayscale(1) !important;
+  transition: opacity 0.2s ease;
+}
+
+nextjs-portal:hover,
+[data-nextjs-toast-wrapper]:hover,
+[data-nextjs-dev-overlay-button]:hover {
+  opacity: 0.9 !important;
+}

@@ -27,6 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${cormorant.variable} antialiased`}
     >
       <body className="min-h-full font-sans selection:bg-black/10 selection:text-black">
