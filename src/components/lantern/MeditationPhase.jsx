@@ -139,7 +139,7 @@ export default function MeditationPhase({ phase, onPhaseChange, lang = 'en', tho
   const handleSubmit = useCallback(() => {
     if (!thought.trim()) return;
     
-    // Fade out input elements
+    // Fade out UI elements (prompt, button, hint)
     const tl = gsap.timeline({
       onComplete: () => {
         onPhaseChange('meditation');
@@ -149,15 +149,18 @@ export default function MeditationPhase({ phase, onPhaseChange, lang = 'en', tho
     tl.to([promptRef.current, submitBtnRef.current, enterHintRef.current], {
       opacity: 0,
       y: -10,
-      duration: 0.6,
+      duration: 0.4,
       ease: 'power2.in',
-      stagger: 0.1,
+      stagger: 0.08,
     })
+    // Animate text being absorbed into the lantern
     .to(inputRef.current, {
+      scale: 0.2,
       opacity: 0,
-      duration: 0.5,
-      ease: 'power2.in',
-    }, '-=0.3');
+      y: 20,
+      duration: 0.8,
+      ease: 'power3.in',
+    }, '-=0.2');
   }, [thought, onPhaseChange]);
 
   const handleKeyDown = useCallback((e) => {
