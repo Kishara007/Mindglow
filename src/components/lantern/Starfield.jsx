@@ -323,15 +323,8 @@ function SkyLantern({ phase, thought }) {
       if (htmlRef.current) {
         gsap.fromTo(htmlRef.current, 
           { opacity: 0 },
-          { opacity: 0.55, duration: 2, ease: 'power2.out' }
+          { opacity: 1, duration: 2, ease: 'power2.out' }
         );
-        // Fade the text out as the lantern flies away
-        gsap.to(htmlRef.current, {
-          opacity: 0,
-          duration: 4,
-          delay: 8,
-          ease: 'power2.in',
-        });
       }
     } else if (phase === 'resolution') {
       gsap.killTweensOf(groupRef.current.position);
@@ -424,32 +417,21 @@ function SkyLantern({ phase, thought }) {
         <Html
           transform
           position={[0, 0, 1.55]}
-          scale={0.35}
+          scale={0.4}
           rotation={[0, 0, 0]}
           zIndexRange={[100, 0]}
           style={{
-            width: '280px',
-            height: '160px',
-            overflow: 'hidden',
+            width: '400px',
             textAlign: 'center',
             color: '#3d1a00',
             fontFamily: 'Inter, sans-serif',
-            fontSize: '24px',
+            fontSize: '32px',
             fontWeight: '600',
-            textShadow: 'none',
-            pointerEvents: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            textShadow: '0px 0px 4px rgba(255,255,255,0.4)',
+            pointerEvents: 'none'
           }}
         >
-          <div ref={htmlRef} style={{ 
-            opacity: 0,
-            maxHeight: '140px',
-            overflow: 'hidden',
-            padding: '8px',
-            wordBreak: 'break-word',
-          }}>
+          <div ref={htmlRef} style={{ opacity: 0 }}>
             {thought}
           </div>
         </Html>
