@@ -458,6 +458,8 @@ export default function Home() {
                 onMouseEnter={() => setIsHoveringSession(true)}
                 onMouseLeave={() => setIsHoveringSession(false)}
                 className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-black/90 px-8 py-4 border border-black/30 bg-black/5 rounded-full hover:bg-black hover:text-white transition-colors duration-500 ease-out flex items-center gap-2"
+                aria-label="Enter Sky Lantern Meditation Session"
+                title="Sky Lantern Meditation"
               >
                 Enter Session
               </Link>
@@ -500,10 +502,16 @@ export default function Home() {
       {/* GLOBAL FOOTER */}
       <footer className="w-full px-6 sm:px-12 py-8 border-t border-black/10 z-10 relative">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-black/70 font-bold">
               © 2026 Mindglow Studio
             </span>
+            <Link
+              href="/lantern"
+              className="font-sans text-[10px] uppercase tracking-[0.2em] text-black/60 hover:text-black font-bold transition-colors"
+            >
+              Lantern Meditation
+            </Link>
           </div>
           
           <h2 className="font-serif text-xl tracking-[0.1em] uppercase text-black/90">MINDGLOW.</h2>
