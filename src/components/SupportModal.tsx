@@ -49,7 +49,7 @@ export default function SupportModal({ isOpen, onClose }: SupportModalProps) {
             </p>
 
             <a
-              href="https://buymeacoffee.com/kisharadilz"
+              href="https://ko-fi.com/kishara"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-3 bg-[#242424] hover:bg-black text-[#F9F9F6] font-sans text-[11px] font-bold uppercase tracking-[0.15em] px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 shadow-lg shadow-black/10"

@@ -506,7 +506,7 @@ export default function MeditationPhase({ phase, onPhaseChange, lang = 'en', tho
               I hope this brought you a moment of peace. If you'd like to support my work, a virtual coffee is deeply appreciated.
             </p>
             <a 
-              href="https://buymeacoffee.com/kisharadilz" 
+              href="https://ko-fi.com/kishara" 
               target="_blank" 
               rel="noopener noreferrer"
               className="support-link"
